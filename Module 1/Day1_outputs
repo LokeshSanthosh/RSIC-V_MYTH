@@ -1,0 +1,53 @@
+vsduser@vsduser-VirtualBox:~$ gcc sum1ton.c
+vsduser@vsduser-VirtualBox:~$ ./a.out
+Sum of numbers from 1 to 110 is 6105 
+
+
+//Debugging using spike
+vsduser@vsduser-VirtualBox:~$ gcc sum1ton.c
+vsduser@vsduser-VirtualBox:~$ ./a.out
+Sum of numbers from 1 to 110 is 6105 
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+vsduser@vsduser-VirtualBox:~$ ls -ltr sum1ton.o
+-rwxrwxr-x 1 vsduser vsduser 167512 Jun 29 03:54 sum1ton.o
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+vsduser@vsduser-VirtualBox:~$ spike pk sum1ton.o
+bbl loader
+Sum of numbers from 1 to 110 is 6105 
+vsduser@vsduser-VirtualBox:~$ spike -d pk sum1ton.o
+(spike) until pc 0 100b0
+bbl loader
+(spike) reg 0 a2
+0x0000000000000000
+(spike) 
+core   0: 0x00000000000100b0 (0x00001637) lui     a2, 0x1
+(spike) 
+core   0: 0x00000000000100b4 (0x00021537) lui     a0, 0x21
+(spike) reg 0 a2
+0x0000000000001000
+(spike) reg 0 a0
+0x0000000000021000
+(spike) 
+core   0: 0x00000000000100b8 (0xff010113) addi    sp, sp, -16
+(spike) reg 0 sp
+0x0000003ffffffb40
+(spike) reg 0 a1
+0x0000003ffffffb58
+(spike) 
+core   0: 0x00000000000100bc (0x7d960613) addi    a2, a2, 2009
+(spike) reg 0 a1
+0x0000003ffffffb58
+(spike) 
+core   0: 0x00000000000100c0 (0x06e00593) li      a1, 110
+(spike) reg 0 a1
+0x000000000000006e
+(spike)         
+core   0: 0x00000000000100c4 (0x18050513) addi    a0, a0, 384
+(spike) 
+core   0: 0x00000000000100c8 (0x00113423) sd      ra, 8(sp)
+(spike) 
+core   0: 0x00000000000100cc (0x340000ef) jal     pc + 0x340
+(spike) reg 0 a1
+0x000000000000006e
+(spike) q
+

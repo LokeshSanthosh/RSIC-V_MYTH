@@ -1,0 +1,23 @@
+vsduser@vsduser-VirtualBox:~$ vim signedHighest.c 
+vsduser@vsduser-VirtualBox:~$ cat signedHighest.c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+        long long int max = (long long int) (pow(2,63) -1);
+        long long int min = (long long int) (pow(2,63) * -1);
+        printf("highest number represented by long long int is %lld\n", max);
+        printf("lowest number represented by long long int is %lld\n", min);
+        return 0;
+}
+
+
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o signedHighest.o signedHighest.c
+vsduser@vsduser-VirtualBox:~$ spike pk signedHighest.o
+bbl loader
+highest number represented by long long int is 9223372036854775807
+lowest number represented by long long int is -9223372036854775808
+vsduser@vsduser-VirtualBox:~$ 
+
+// since the assigned type to max and min are just "int" and it is limiting max value to 32 bit 
+// so the type should be changed to "long long int" for the expected output

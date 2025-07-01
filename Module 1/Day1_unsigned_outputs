@@ -1,0 +1,71 @@
+///////////Unsigned number lab/////////////////
+//max value of unsigned number when the length is 64 bits
+vsduser@vsduser-VirtualBox:~$ vim unsignedHighest.c 
+vsduser@vsduser-VirtualBox:~$ cat unsignedHighest.c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+	unsigned long long int max = (unsigned long long int) (pow(2,64) -1);
+	printf("highest number represented by unsigned long long int is %llu\n", max);
+	return 0;
+}
+
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o unsignedHighest.o unsignedHighest.c
+vsduser@vsduser-VirtualBox:~$ spike pk unsignedHighest.o
+bbl loader
+highest number represented by unsigned long long int is 18446744073709551615
+
+//max value of unsigned number when the length is 64 bits 
+//but assigning the bigger value than 64 cannot be accepted by the long long int
+vsduser@vsduser-VirtualBox:~$ vim unsignedHighest.c 
+vsduser@vsduser-VirtualBox:~$ cat unsignedHighest.c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+	unsigned long long int max = (unsigned long long int) (pow(2,127) -1);
+	printf("highest number represented by unsigned long long int is %llu\n", max);
+	return 0;
+}
+
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o unsignedHighest.o unsignedHighest.c
+vsduser@vsduser-VirtualBox:~$ spike pk unsignedHighest.o
+bbl loader
+highest number represented by unsigned long long int is 18446744073709551615
+
+//value of unsigned number when the length is 64 bits but assigning the smaller value than 64
+vsduser@vsduser-VirtualBox:~$ vim unsignedHighest.c 
+vsduser@vsduser-VirtualBox:~$ cat unsignedHighest.c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+	unsigned long long int max = (unsigned long long int) (pow(2,14) -1);
+	printf("highest number represented by unsigned long long int is %llu\n", max);
+	return 0;
+}
+
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o unsignedHighest.o unsignedHighest.c
+vsduser@vsduser-VirtualBox:~$ spike pk unsignedHighest.o
+bbl loader
+highest number represented by unsigned long long int is 16383
+
+//value of unsigned number when the length is multiplied with -1, shows zero because it cannot show negative numbe
+vsduser@vsduser-VirtualBox:~$ vim unsignedHighest.c 
+vsduser@vsduser-VirtualBox:~$ cat unsignedHighest.c
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+	unsigned long long int max = (unsigned long long int) (pow(2,14)* -1);
+	printf("highest number represented by unsigned long long int is %llu\n", max);
+	return 0;
+}
+
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o unsignedHighest.o unsignedHighest.c
+vsduser@vsduser-VirtualBox:~$ spike pk unsignedHighest.o
+bbl loader
+highest number represented by unsigned long long int is 0
+vsduser@vsduser-VirtualBox:~$ 
+

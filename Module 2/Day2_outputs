@@ -1,0 +1,31 @@
+vsduser@vsduser-VirtualBox:~$ vim 1to9_custom.c 
+vsduser@vsduser-VirtualBox:~$ riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o 1to9_custom.o 1to9_custom.c load.S 
+vsduser@vsduser-VirtualBox:~$ spike pk 1to9_custom.o
+bbl loader
+Sum of number from 1 to 9 is 45
+
+//focused output
+bbl loader
+Sum of number from 1 to 9 is 45
+
+///////////////////////////////////////////////////////////////////////////
+//the following output is shown in terminal after running ./rv32im.sh
+//the output generated using the testbench.v for the design picorv32.v after 
+//generating the hex files using the above rv32im.sh shell script
+
+vsduser@vsduser-VirtualBox:~/riscv_workshop_collaterals/labs$ ls
+1to9_custom.c  a.out  hello.c  hex8tohex32.py  load.S  picorv32.v  riscv.ld  rv32im.sh  start.ld  start.S  syscalls.c  testbench.v
+vsduser@vsduser-VirtualBox:~/riscv_workshop_collaterals/labs$ vim rv32im.sh 
+vsduser@vsduser-VirtualBox:~/riscv_workshop_collaterals/labs$ vim 1to9_custom.c 
+vsduser@vsduser-VirtualBox:~/riscv_workshop_collaterals/labs$ chmod 777 rv32im.sh 
+vsduser@vsduser-VirtualBox:~/riscv_workshop_collaterals/labs$ ./rv32im.sh 
+Sum of number from 1 to 3 is 6
+TRAP
+vsduser@vsduser-VirtualBox:~/riscv_workshop_collaterals/labs$ ls
+1to9_custom.c  a.out           firmware.elf  hello.c         load.o  picorv32.v  rv32im.sh  start.ld  syscalls.c  testbench.v
+1to9_custom.o  firmware32.hex  firmware.hex  hex8tohex32.py  load.S  riscv.ld    start.elf  start.S   syscalls.o  testbench.vvp
+
+//focused output 
+Sum of number from 1 to 3 is 6
+TRAP
+
